@@ -179,7 +179,7 @@ public class EmployeeDao {
         }
 
         String url = "jdbc:mysql://localhost:3306/employees";
-        String sql = "select * from employees where  lower(first_name) like lower(?);";
+        String sql = "select * from employees where  lower(first_name) like lower(?) OR lower(last_name) like lower(?);";
 
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
@@ -187,7 +187,7 @@ public class EmployeeDao {
             System.out.println("entos");
 
             pstmt.setString(1,"%" + name + "%");
-
+            pstmt.setString(2,"%" + name + "%");
             try(ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
                     Employee employee = new Employee();
