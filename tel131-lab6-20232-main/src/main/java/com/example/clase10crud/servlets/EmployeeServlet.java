@@ -76,7 +76,7 @@ public class EmployeeServlet extends HttpServlet {
         switch (action){
             case "crear":
                 // TODO
-                String empNo = request.getParameter("empNo");
+                //String empNo = request.getParameter("empNo");
                 String birthDate = request.getParameter("birthDate");
                 String firstName = request.getParameter("firstName");
                 String lastName = request.getParameter("lastName");
@@ -88,15 +88,22 @@ public class EmployeeServlet extends HttpServlet {
                     isAllValid = false;
                 }
 
-                if(empNo.length() > 10){
+                if(lastName.length() > 10){
                     isAllValid = false;
                 }
 
                 if(isAllValid){
 
-                    Employee employee = employeeDao.buscarPorId(empNo);
+                    int employ = employeeDao.searchLastId();
 
-                    if(employee == null){
+                    if(employ != 0){
+                        Employee employee = new Employee();
+                        employee.setEmpNo(employ);
+                        employee.setBirthDate(birthDate);
+                        employee.setFirstName(firstName);
+                        employee.setLastName(lastName);
+                        employee.setGender(gender);
+                        employee.setHireDate(hireDate);
                         employeeDao.create(employee);
                         response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
                     }else{

@@ -20,10 +20,7 @@
                     - un botón con type submit (para enviarlo)
             -->
             <form method="post" action="<%=request.getContextPath()%>/EmployeeServlet">
-                <div class="mb-3">
-                    <labe>employee number</labe>
-                    <input type="text" class="form-control" name="empNo">
-                </div>
+
                 <div class="mb-3">
                     <labe>birth date</labe>
                     <input type="text" class="form-control" name="birthDate">

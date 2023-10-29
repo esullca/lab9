@@ -62,7 +62,7 @@ public class EmployeeDao {
 
         try(Connection connection = DriverManager.getConnection(url,username,password);
             PreparedStatement pstmt = connection.prepareStatement(sql)){
-
+            System.out.println(employee.getEmpNo());
             pstmt.setInt(1,employee.getEmpNo());
             pstmt.setString(2,employee.getBirthDate());
             pstmt.setString(3,employee.getFirstName());
@@ -211,7 +211,27 @@ public class EmployeeDao {
     }
 
     public int searchLastId() {
+        int lastId = 0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/employees";
+
+
+            try (Connection connection = DriverManager.getConnection(url, username, password);
+                 Statement statement = connection.createStatement()) {
+                String sql = "SELECT MAX(emp_no) as last_id FROM employees";
+                ResultSet resultSet = statement.executeQuery(sql);
+
+                if (resultSet.next()) {
+                    lastId = resultSet.getInt("last_id");
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
         // TODO
-        return 0;
+        System.out.println(lastId);
+        return lastId+1;
     }
 }
