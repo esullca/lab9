@@ -21,10 +21,15 @@ public class EmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
 
         EmployeeDao employeeDao = new EmployeeDao();
+        //
 
+
+
+    //
         switch (action){
             case "lista":
                 //saca del modelo
@@ -62,6 +67,7 @@ public class EmployeeServlet extends HttpServlet {
                 }
                 response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
                 break;
+
         }
     }
 
